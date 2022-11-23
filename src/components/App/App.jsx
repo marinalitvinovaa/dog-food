@@ -8,21 +8,40 @@ import Search from '../Search/Search';
 import Button from '../Button/Button';
 import SearchInfo from '../SearchInfo/SearchInfo';
 import './styles.css';
-import data from '../../assets/data.json'
+// import data from '../../assets/data.json'
+import api from '../../utils/api';
+import useDebounce from '../../hooks/useDebounce';
+import { isLiked } from '../../utils/product';
 
 function App() {
-  const [cards, setCards] = useState(data);
+  const [cards, setCards] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [currentUser, setCurrentUser] = useState(null)
+  const debounceSearchQuery = useDebounce(searchQuery, 500)
 
   function handleRequest() {
-    const filterCards = data.filter(item => item.name.toUpperCase().includes(searchQuery.toUpperCase()));
-    setCards(prevState => filterCards)
+    // const filterCards = cards.filter(item => item.name.toUpperCase().includes(searchQuery.toUpperCase()));
+    // setCards(prevState => filterCards)
+
+    api.search(debounceSearchQuery)
+      .then((searchResult) => {
+        setCards(searchResult)
+      })
+      .catch(err => console.log(err))
   }
 
   useEffect(() => {
+    Promise.all([api.getProductList(), api.getUserInfo()])
+    .then(([productsData, userData]) => {
+        setCurrentUser(userData)
+        setCards(productsData.products)
+    })
+    .catch(err => console.log(err))
+  }, [])
+
+  useEffect(() => {
     handleRequest()
-  }, [searchQuery])
+  }, [debounceSearchQuery])
 
 
   const handleFormSubmit = (e) => {
@@ -35,9 +54,30 @@ function App() {
     setSearchQuery(inputValue);
   }
 
+  function handleUpdateUser(userUpdateData) {
+    api.setUserInfo(userUpdateData)
+    .then((newUserData) => {
+      setCurrentUser(newUserData)
+    })
+  }
+
+  function handleProductLike(product) {
+    const liked = isLiked(product.likes, currentUser._id)
+
+    api.changeLikeProduct(product._id, liked)
+      .then((newCard) => {
+         const newProducts  = cards.map(cardState => {
+            return cardState._id === newCard._id ? newCard : cardState
+         })
+
+         setCards(newProducts)
+      })
+  }
+
+
   return (
     <>
-      <Header>
+      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
         <>
         <Logo className="logo logo_place_header" href='/' />
         <Search onSubmit={handleFormSubmit} onInput={handleInputChange}/>
@@ -47,7 +87,7 @@ function App() {
         <SearchInfo searchText={searchQuery} searchCount={cards.length}/>
         <Sort/>
         <div className='content__cards'>
-          <CardList goods={cards}/>
+          <CardList goods={cards} onProductLike={handleProductLike} currentUser={currentUser}/>
         </div>
       </main>
       <Footer/>
