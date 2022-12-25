@@ -1,7 +1,7 @@
 import { children } from 'react';
 import s from './index.module.css';
 import cn from 'classnames'
-
+// import { type } from '@testing-library/user-event/dist/type';
 
 
 function Button({type, children}) {
