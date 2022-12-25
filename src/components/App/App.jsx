@@ -15,8 +15,8 @@ import { CatalogPage } from '../../pages/CatalogPage/CatalogPage'
 import { ProductPage } from '../../pages/ProductPage/ProductPage'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage'
-import { UserContext } from '../../context/UserContext'
-import { CardContext } from '../../context/CardContext'
+import { UserContext } from '../../context/userContext'
+import { CardContext } from '../../context/cardContext'
 import { ThemeContext, themes } from '../../context/themeContext'
 
 function App() {

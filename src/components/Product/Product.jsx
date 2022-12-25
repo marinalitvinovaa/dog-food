@@ -6,7 +6,7 @@ import truck from '../../assets/images/truck.svg'
 import quality from '../../assets/images/quality.svg'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
-import { UserContext } from '../../context/UserContext'
+import { UserContext } from '../../context/userContext'
 
 const Product = ({
   onProductLike,

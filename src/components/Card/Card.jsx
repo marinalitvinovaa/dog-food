@@ -5,8 +5,8 @@ import { ReactComponent as Save } from './save.svg'
 import { clacDiscountPrice, isLiked } from '../../utils/product'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
-import { UserContext } from '../../context/UserContext'
-import { CardContext } from '../../context/CardContext'
+import { UserContext } from '../../context/userContext'
+import { CardContext } from '../../context/cardContext'
 
 function Card({
   name,
