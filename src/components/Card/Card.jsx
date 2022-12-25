@@ -60,11 +60,7 @@ function Card({
         <Link to={`/product/${_id}/`} className="card__link">
           <img src={pictures} alt={description} className="card__image" />
           <div className="card__desc">
-            <span
-              className={discount !== 0 ? 'card__old-price' : 'card__price'}
-            >
-              {price}&nbsp;₽
-            </span>
+            <span className={discount !== 0 ? 'card__old-price' : 'card__price'}>{price}&nbsp;₽</span>
             {discount !== 0 && (
               <span className="card__price card__price_type_discount">
                 {discount_price}&nbsp;₽

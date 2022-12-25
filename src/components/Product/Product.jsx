@@ -48,7 +48,7 @@ const Product = ({
           <span className={discount ? s.oldPrice : s.price}>
             {price}&nbsp;₽
           </span>
-          {discount && (
+          {discount !== 0 && (
             <span className={cn(s.price, 'card__price_type_discount')}>
               {discount_price}&nbsp;₽
             </span>

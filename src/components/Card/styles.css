@@ -131,6 +131,7 @@
 	text-decoration: none;
 	display: inline-block;
 	transition: background-color .3s;
+	text-align: center;
 }
 
 .btn_type_primary {
