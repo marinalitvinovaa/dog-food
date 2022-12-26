@@ -1,12 +1,19 @@
+import React from 'react';
 import './styles.css';
 import logoSrc from './logo.svg'
+import { Link } from 'react-router-dom';
 
-function Logo({className, href}) {
+function Logo({className, href, ...props}) {
+  const hrefValue = href ? href : null;
   return (
-    <a href={href ? href : '#'} className={className ? className : "logo"}>
+  hrefValue 
+    ? <Link to={{pathname: hrefValue}} className={className ? className : "logo"}>
+      <img src={logoSrc} alt="Логотип компании" className='logo__pic' />
+    </Link>
+    : <a href='#' className={className ? className : "logo"}>
       <img src={logoSrc} alt="Логотип компании" className='logo__pic' />
     </a>
-  );
+  )
 }
 
 export default Logo;

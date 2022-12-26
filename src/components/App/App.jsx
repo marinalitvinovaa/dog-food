@@ -1,12 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Header from '../Header/Header'
-import Sort from '../Sort/Sort'
-import CardList from '../CardList/CardLisrt'
 import Footer from '../Footer/Footer'
 import Logo from '../Logo/Logo'
 import Search from '../Search/Search'
 import SearchInfo from '../SearchInfo/SearchInfo'
-import Spinner from '../Spinner/Spinner'
 import './styles.css'
 import api from '../../utils/api'
 import useDebounce from '../../hooks/useDebounce'
@@ -17,7 +14,8 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage'
 import { UserContext } from '../../context/userContext'
 import { CardContext } from '../../context/cardContext'
-import { ThemeContext, themes } from '../../context/themeContext'
+import { FaqPage } from '../../pages/FAQPage/faq-page'
+import { FavoritePage } from '../../pages/FavoritePage/FavoritePage'
 
 function App() {
   const [cards, setCards] = useState([])
@@ -25,10 +23,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const debounceSearchQuery = useDebounce(searchQuery, 300)
-  const [theme, setTheme] = useState(themes.light)
+  const [favorites, setFavorites] = useState([])
 
   const navigate = useNavigate()
-
   const handleRequest = useCallback(() => {
     setIsLoading(true)
     api
@@ -46,6 +43,10 @@ function App() {
       .then(([productsData, userData]) => {
         setCurrentUser(userData)
         setCards(productsData.products)
+        const favoriteProduct = productsData.products.filter((item) =>
+          isLiked(item.likes, userData._id),
+        )
+        setFavorites((prevState) => favoriteProduct)
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false))
@@ -78,20 +79,28 @@ function App() {
         const newProducts = cards.map((cardState) => {
           return cardState._id === updateCard._id ? updateCard : cardState
         })
+
+        if (!liked) {
+          setFavorites((prevState) => [...prevState, updateCard])
+        } else {
+          setFavorites((prevState) =>
+            prevState.filter((card) => card._id !== updateCard._id),
+          )
+        }
+
         setCards(newProducts)
         return updateCard
       })
-    }
+    },
+    [currentUser, cards],
   )
 
-  const toggleTheme = () => {
-    theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark)
-  }
 
   return (
-    <ThemeContext.Provider value={{ theme: themes.light, toggleTheme }}>
-      <UserContext.Provider value={{ user: currentUser }}>
-        <CardContext.Provider value={{ cards, handleLike: handleProductLike }}>
+      <UserContext.Provider value={{ user: currentUser, isLoading}}>
+        <CardContext.Provider
+          value={{ cards, favorites, handleLike: handleProductLike}}
+        >
           <Header>
             <>
               <Logo className="logo logo_place_header" href="/" />
@@ -108,24 +117,22 @@ function App() {
               </Routes>
             </>
           </Header>
-          <main
-            className="content container"
-            style={{ backgroundColor: theme.background }}
-          >
+          <main className="content container">
             <SearchInfo searchText={searchQuery} />
             <Routes>
-              <Route path="/" element={<CatalogPage isLoading={isLoading} />} />
+              <Route path="/" element={<CatalogPage  />} />
               <Route
                 path="/product/:productId/"
                 element={<ProductPage isLoading={isLoading} />}
               />
+              <Route path="/faq" element={<FaqPage />} />
+              <Route path="/favorites" element={<FavoritePage/>} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </main>
           <Footer />
         </CardContext.Provider>
       </UserContext.Provider>
-    </ThemeContext.Provider>
   )
 }
 

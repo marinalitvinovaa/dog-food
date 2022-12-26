@@ -7,6 +7,7 @@ import quality from '../../assets/images/quality.svg'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext'
+import { ContentHeader } from '../ContentHeader/ContentHeader'
 
 const Product = ({
   onProductLike,
@@ -30,16 +31,11 @@ const Product = ({
 
   return (
     <>
+    <ContentHeader title={name}>
       <div>
-        <a href="#" className="button-back" onClick={() => navigate(-1)}>
-          Назад
-        </a>
-        <h1 className={s.productTitle}>{name}</h1>
-        <div>
-          <span>Артикул:</span> <b>234567</b>
-        </div>
+        <span>Артикул:</span> <b>234567</b>
       </div>
-
+    </ContentHeader>
       <div className={s.product}>
         <div className={s.imgWrapper}>
           <img src={pictures} alt={`Изобраение ${name}`} />

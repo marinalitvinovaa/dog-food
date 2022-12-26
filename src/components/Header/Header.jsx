@@ -1,25 +1,25 @@
-import { useContext } from 'react'
-import { ThemeContext } from '../../context/themeContext'
-import './styles.css'
+import s from './styles.module.css'
+import cn from 'classnames';
+
+import { ReactComponent as Favorite } from './favorites.svg';
+import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CardContext } from '../../context/cardContext';
 
 function Header({ children, user, onUpdateUser }) {
-  const { toggleTheme } = useContext(ThemeContext)
-  // const handleClickButtoEdit = (e) => {
-  //   e.preventDefault();
-
-  //   onUpdateUser({name: 'Василий', about: 'Ментор'})
-  // }
-
+  const {favorites} = useContext(CardContext)
   return (
-    <header className="header">
+    <header className={cn(s.header, 'cover')}>
       <div className="container">
-        {/* {user?.email && <span>{user.email}</span>}
-        {user?.name && <span>{user.name}</span>} */}
-        <button className="btn" onClick={toggleTheme}>
-          Изменить
-        </button>
-
-        <div className="header__wrapper">{children}</div>
+        <div className={s.header__wrapper}>
+          {children}
+          <div className={s.iconMenu}>
+            <Link className={s.favoritesLink} to={{pathname: "/favorites", state: {from: '123'}}}>
+              <Favorite/>
+              {favorites.length !== 0 && <span className={s.iconBubble}>{favorites.length}</span>}
+            </Link>
+          </div>
+        </div>
       </div>
     </header>
   )

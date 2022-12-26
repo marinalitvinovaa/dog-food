@@ -1,4 +1,5 @@
 import cn from 'classnames'
+import ContentLoader from 'react-content-loader'
 
 import './styles.css'
 import { ReactComponent as Save } from './save.svg'
@@ -8,18 +9,8 @@ import { useContext } from 'react'
 import { UserContext } from '../../context/userContext'
 import { CardContext } from '../../context/cardContext'
 
-function Card({
-  name,
-  price,
-  _id,
-  likes,
-  discount,
-  wight,
-  description,
-  pictures,
-  tags,
-}) {
-  const { user: currentUser } = useContext(UserContext)
+function Card({name, price, _id, likes, discount, wight, description, pictures, tags }) {
+  const { user: currentUser, isLoading } = useContext(UserContext)
   const { handleLike: onProductLike } = useContext(CardContext)
   const discount_price = clacDiscountPrice(price, discount)
 
@@ -31,7 +22,21 @@ function Card({
 
   return (
     <>
-      <div className="card">
+    {
+      isLoading 
+      ? <ContentLoader 
+						speed={2}
+						width={186}
+						height={385}
+						viewBox="0 0 186 385"
+						backgroundColor="#f3f3f3"
+						foregroundColor="#ecebeb"
+					>
+						<path d="M 0 0 h 185.6 v 187 H 0 z M 0 203 h 186 v 14 H 0 z M 0 233 h 186 v 56 H 0 z M 0 305 h 186 v 24 H 0 z" /> 
+						<rect x="0" y="345" rx="20" ry="20" width="121" height="40" />
+					</ContentLoader>
+
+    :   <div className="card">
         <div className="card__sticky card__sticky_type_top-left">
           {discount !== 0 && (
             <span className="card__discount">{`-${discount}%`}</span>
@@ -75,6 +80,7 @@ function Card({
           В корзину
         </a>
       </div>
+    }
     </>
   )
 }
