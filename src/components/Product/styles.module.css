@@ -182,6 +182,26 @@
 	
 }
 
+.reviewList {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	gap: 30px;
+	max-width: 80%;
+	/* margin: 0 auto; */
+	margin-bottom: 60px;
+}
+
+.review {
+	padding: 40px;
+	border: 1px solid #d8d8d8;
+	border-radius: 30px;
+}
+
+.stars {
+	margin-bottom: 10px;
+}
+
 @media (max-width: 1000px) {
 	.product {
 		gap: 20px;

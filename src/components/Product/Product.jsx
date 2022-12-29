@@ -8,32 +8,32 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext'
 import { ContentHeader } from '../ContentHeader/ContentHeader'
+import Rating from '../Rating/Rating'
+import { useState } from 'react'
+import { useMemo } from 'react'
+import { FormReview } from '../FormReview/FormReview'
 
-const Product = ({
-  onProductLike,
-  pictures,
-  likes = [],
-  reviews,
-  tags,
-  name,
-  price,
-  discount,
-  description,
-  wight,
-  _id,
-}) => {
+const Product = ({ onProductLike, pictures, likes = [], reviews, tags, name, price, discount, description, wight, _id, setProduct}) => {
   const { user: currentUser } = useContext(UserContext)
 
-  const navigate = useNavigate()
+  // const [rating, setRating] = useState(null);
+  // const navigate = useNavigate()
   const discount_price = clacDiscountPrice(price, discount)
   const isLike = isLiked(likes, currentUser?._id)
   const descriptionHTML = createMarkUp(description)
+
+  const ratingCount = useMemo(() => {
+    Math.round(reviews.reduce((acc, r) => {
+      acc += r.rating
+    }, 0)/reviews.length)
+  }, [reviews])
 
   return (
     <>
     <ContentHeader title={name}>
       <div>
         <span>Артикул:</span> <b>234567</b>
+        <Rating rating={ratingCount}/> {reviews.length} отзыв
       </div>
     </ContentHeader>
       <div className={s.product}>
@@ -119,6 +119,11 @@ const Product = ({
           </div>
         </div>
       </div>
+      <h2 className={s.title}>Отзывы о товаре </h2>
+      <ul className={s.reviewList}>
+        {reviews.map(reviewData => <li className={s.review} key={reviewData._id}><Rating rating={reviewData.rating}/> {reviewData.text}</li>)}
+      </ul>
+      <FormReview title={`Отзыв о товаре ${name}`} productId={_id} setProduct={setProduct} />
     </>
   )
 }
