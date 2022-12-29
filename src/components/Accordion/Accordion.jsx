@@ -1,6 +1,5 @@
 import { useState } from "react"
 import cn from "classnames";
-
 import s from './styles.module.css';
 
 export const Accordion = ({children, title}) => {

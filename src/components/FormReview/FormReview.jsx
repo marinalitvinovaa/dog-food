@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { EMAIL_REGEXP, PASSWORD_REGEXP, VALIDATE_CONFIG } from "../../utils/constant"
+import { VALIDATE_CONFIG } from "../../utils/constant"
 import { FormButton } from "../FormButton/FormButton"
 import { FormInput } from "../FormInput/FormInput"
 import Form from '../Form/Form'
@@ -34,7 +34,7 @@ export const FormReview = ({title = 'Отзыв о товаре', productId, set
       <FormInput
         {...textReview}
         id="text"
-        typeInput="textarea"
+        type="textarea"
         placeholder="Введите текст отзыва"
       />
         {errors?.email && <p className="errorMessage">{errors?.email?.message}</p>}

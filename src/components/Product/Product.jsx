@@ -4,27 +4,22 @@ import { clacDiscountPrice, isLiked, createMarkUp } from '../../utils/product'
 import { ReactComponent as Save } from '../../assets/images/save.svg'
 import truck from '../../assets/images/truck.svg'
 import quality from '../../assets/images/quality.svg'
-import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../context/userContext'
 import { ContentHeader } from '../ContentHeader/ContentHeader'
 import Rating from '../Rating/Rating'
-import { useState } from 'react'
 import { useMemo } from 'react'
 import { FormReview } from '../FormReview/FormReview'
 
-const Product = ({ onProductLike, pictures, likes = [], reviews, tags, name, price, discount, description, wight, _id, setProduct}) => {
+const Product = ({ onProductLike, pictures, likes = [], reviews,  name, price, discount, description, _id, setProduct}) => {
   const { user: currentUser } = useContext(UserContext)
-
-  // const [rating, setRating] = useState(null);
-  // const navigate = useNavigate()
   const discount_price = clacDiscountPrice(price, discount)
   const isLike = isLiked(likes, currentUser?._id)
   const descriptionHTML = createMarkUp(description)
 
   const ratingCount = useMemo(() => {
     Math.round(reviews.reduce((acc, r) => {
-      acc += r.rating
+      return acc += r.rating
     }, 0)/reviews.length)
   }, [reviews])
 

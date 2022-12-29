@@ -14,8 +14,6 @@ import {
   Routes,
   Route,
   useNavigate,
-  Form,
-  Link,
   useLocation,
 } from 'react-router-dom'
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage'
@@ -23,10 +21,7 @@ import { UserContext } from '../../context/userContext'
 import { CardContext } from '../../context/cardContext'
 import { FaqPage } from '../../pages/FAQPage/faq-page'
 import { FavoritePage } from '../../pages/FavoritePage/FavoritePage'
-import FormMy from '../Form/Form'
-import Registrationform from '../Form/registrationForm'
 import Modal from '../Modal/Modal'
-import { FormModal } from '../FormModal/FormModal'
 import { Register } from '../Register/Register'
 import { Login } from '../Login/Login'
 import { ResetPassword } from '../ResetPassword/ResetPassword'
@@ -40,8 +35,6 @@ function App() {
   const [favorites, setFavorites] = useState([])
 
   const [currentSort, setCurrentSort] = useState('')
-
-  const [isOpenModalForm, setIisOpenModalForm] = useState(false)
 
   const location = useLocation()
   const backgroundLocation = location.state?.backgroundLocation
@@ -88,11 +81,6 @@ function App() {
     setSearchQuery(inputValue)
   }
 
-  function handleUpdateUser(userUpdateData) {
-    api.setUserInfo(userUpdateData).then((newUserData) => {
-      setCurrentUser(newUserData)
-    })
-  }
 
   const handleProductLike = useCallback(
     (product) => {

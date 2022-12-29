@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { CardContext } from '../../context/cardContext';
 
-function Header({ children, user, onUpdateUser }) {
+function Header({ children }) {
   const {favorites} = useContext(CardContext)
   const location = useLocation()
   return (

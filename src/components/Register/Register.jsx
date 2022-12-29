@@ -4,7 +4,6 @@ import { EMAIL_REGEXP, PASSWORD_REGEXP, VALIDATE_CONFIG } from '../../utils/cons
 import Form from '../Form/Form'
 import { FormButton } from '../FormButton/FormButton'
 import { FormInput } from '../FormInput/FormInput'
-// import s from './styles.module.css'
 
 export const Register = () => {
   const location = useLocation();

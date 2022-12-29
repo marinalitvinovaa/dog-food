@@ -1,6 +1,5 @@
 import cn from 'classnames'
 import ContentLoader from 'react-content-loader'
-
 import './styles.css'
 import { ReactComponent as Save } from './save.svg'
 import { clacDiscountPrice, isLiked } from '../../utils/product'
