@@ -11,8 +11,6 @@ export const ResetPassword = () => {
   const sendRegisterApi = (data) => {
       console.log(data)
   }
-
-
   const emailRegister = register('email', {
     required: {
       value: true,

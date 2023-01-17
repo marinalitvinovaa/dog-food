@@ -1,4 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom'
+
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import Logo from '../Logo/Logo'
@@ -10,12 +17,6 @@ import useDebounce from '../../hooks/useDebounce'
 import { isLiked } from '../../utils/product'
 import { CatalogPage } from '../../pages/CatalogPage/CatalogPage'
 import { ProductPage } from '../../pages/ProductPage/ProductPage'
-import {
-  Routes,
-  Route,
-  useNavigate,
-  useLocation,
-} from 'react-router-dom'
 import { NotFoundPage } from '../../pages/NotFoundPage/NotFoundPage'
 import { UserContext } from '../../context/userContext'
 import { CardContext } from '../../context/cardContext'
@@ -33,9 +34,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const debounceSearchQuery = useDebounce(searchQuery, 300)
   const [favorites, setFavorites] = useState([])
-
   const [currentSort, setCurrentSort] = useState('')
-
   const location = useLocation()
   const backgroundLocation = location.state?.backgroundLocation
   const initialPath = location.state?.initialPath
@@ -80,7 +79,6 @@ function App() {
   const handleInputChange = (inputValue) => {
     setSearchQuery(inputValue)
   }
-
 
   const handleProductLike = useCallback(
     (product) => {
@@ -194,7 +192,6 @@ function App() {
                   </Modal>
                 }
               />
-
               <Route
                 path="/reset-password"
                 element={

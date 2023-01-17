@@ -12,8 +12,6 @@ function Search({onSubmit: propsOnSubmit, onInput}) {
     setInputText(inputRef.current.value)
     onInput && onInput(inputRef.current.value)
   }
-
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
     propsOnSubmit(inputText)

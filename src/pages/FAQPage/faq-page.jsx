@@ -43,8 +43,6 @@ const dataFAQ = [
 	},
 ]
 
-
-
 export const FaqPage = () => {
  return ( 
  <>

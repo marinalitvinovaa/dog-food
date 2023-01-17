@@ -1,6 +1,6 @@
 import s from './styles.module.css'
 import cn from 'classnames'
-import { clacDiscountPrice, isLiked, createMarkUp } from '../../utils/product'
+import { calcDiscountPrice, isLiked, createMarkUp } from '../../utils/product'
 import { ReactComponent as Save } from '../../assets/images/save.svg'
 import truck from '../../assets/images/truck.svg'
 import quality from '../../assets/images/quality.svg'
@@ -13,7 +13,7 @@ import { FormReview } from '../FormReview/FormReview'
 
 const Product = ({ onProductLike, pictures, likes = [], reviews,  name, price, discount, description, _id, setProduct}) => {
   const { user: currentUser } = useContext(UserContext)
-  const discount_price = clacDiscountPrice(price, discount)
+  const discount_price = calcDiscountPrice(price, discount)
   const isLike = isLiked(likes, currentUser?._id)
   const descriptionHTML = createMarkUp(description)
 

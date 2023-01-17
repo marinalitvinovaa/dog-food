@@ -2,6 +2,7 @@ import React from "react";
 import notFound from './img/ic-notfound.svg';
 import { Link } from 'react-router-dom';
 import s from './styles.module.css';
+
 export const NotFound = ( {children, title, buttonText = "На главную", buttonAction} ) => {
 	return (
 		<>

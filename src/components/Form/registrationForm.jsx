@@ -9,15 +9,13 @@ function Registrationform() {
   } = useForm({
     mode: 'onBlur',
   })
-
   const cbSubmit = (data) => {
     console.log(data)
   }
-
+  
   return (
     <form onSubmit={handleSubmit(cbSubmit)}>
       <h3>Регистрация</h3>
-
       <FormInput
         {...register('name', {
           required: {

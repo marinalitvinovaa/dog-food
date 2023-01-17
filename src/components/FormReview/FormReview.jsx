@@ -1,10 +1,10 @@
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { VALIDATE_CONFIG } from "../../utils/constant"
 import { FormButton } from "../FormButton/FormButton"
 import { FormInput } from "../FormInput/FormInput"
 import Form from '../Form/Form'
 import Rating from "../Rating/Rating"
-import { useState } from "react"
 import api from "../../utils/api"
 
 
@@ -19,7 +19,6 @@ export const FormReview = ({title = 'Отзыв о товаре', productId, set
       })
   }
 
-
   const textReview = register('text', {
     required: {
       value: true,
@@ -30,7 +29,6 @@ export const FormReview = ({title = 'Отзыв о товаре', productId, set
   return (
     <Form title={title} handleFormSubmit={handleSubmit(sendReviewProduct)}>
       <Rating rating={rating} isEditable setRating={setRating}/>
-
       <FormInput
         {...textReview}
         id="text"
@@ -38,7 +36,6 @@ export const FormReview = ({title = 'Отзыв о товаре', productId, set
         placeholder="Введите текст отзыва"
       />
         {errors?.email && <p className="errorMessage">{errors?.email?.message}</p>}
-
       <FormButton type="submit" color="yellow">Оставить отзыв</FormButton>
     </Form>
   )

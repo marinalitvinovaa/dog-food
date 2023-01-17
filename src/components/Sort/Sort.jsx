@@ -19,7 +19,6 @@ const tabs = [
   },
 ]
 
-
 function Sort() {
   const {currentSort, setCurrentSort, onSortData} = useContext(CardContext)
 

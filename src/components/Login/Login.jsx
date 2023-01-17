@@ -5,7 +5,6 @@ import { FormButton } from "../FormButton/FormButton"
 import { FormInput } from "../FormInput/FormInput"
 import Form from '../Form/Form'
 
-
 export const Login = () => {
   const location = useLocation();
   const initialPath = location.state?.initialPath;
@@ -16,19 +15,15 @@ export const Login = () => {
     e.preventDefault()
     navigate('/reset-password', {replace: true, state: {backgroundLocation: location, initialPath}})
   }
-
   
   const handleClickRegistrationButton = (e) => {
     e.preventDefault()
     navigate('/register', {replace: true, state: {backgroundLocation: location, initialPath}})
   }
-
-  
  
   const sendRegisterApi = (data) => {
       console.log(data)
   }
-
 
   const emailRegister = register('email', {
     required: {

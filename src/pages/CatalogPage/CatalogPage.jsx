@@ -1,7 +1,6 @@
 import { useContext } from "react"
-import CardList from "../../components/CardList/CardLisrt"
+import CardList from "../../components/CardList/CardList"
 import Sort from "../../components/Sort/Sort"
-import Spinner from "../../components/Spinner/Spinner"
 import { CardContext } from "../../context/cardContext";
 
 

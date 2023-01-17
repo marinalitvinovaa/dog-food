@@ -1,17 +1,17 @@
 import cn from 'classnames'
+import { useContext } from 'react'
 import ContentLoader from 'react-content-loader'
+import { Link } from 'react-router-dom'
 import './styles.css'
 import { ReactComponent as Save } from './save.svg'
-import { clacDiscountPrice, isLiked } from '../../utils/product'
-import { Link } from 'react-router-dom'
-import { useContext } from 'react'
+import { calcDiscountPrice, isLiked } from '../../utils/product'
 import { UserContext } from '../../context/userContext'
 import { CardContext } from '../../context/cardContext'
 
 function Card({name, price, _id, likes, discount, wight, description, pictures, tags }) {
   const { user: currentUser, isLoading } = useContext(UserContext)
   const { handleLike: onProductLike } = useContext(CardContext)
-  const discount_price = clacDiscountPrice(price, discount)
+  const discount_price = calcDiscountPrice(price, discount)
 
   const liked = isLiked(likes, currentUser?._id)
 

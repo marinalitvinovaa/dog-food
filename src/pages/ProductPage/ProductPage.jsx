@@ -1,21 +1,13 @@
 import { useContext } from 'react'
 import { useCallback } from 'react'
-import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import Footer from '../../components/Footer/Footer'
-import Header from '../../components/Header/Header'
-import Logo from '../../components/Logo/Logo'
+import { useParams } from 'react-router-dom'
 import { NotFound } from '../../components/NotFound/NotFound'
 import Product from '../../components/Product/Product'
-import Search from '../../components/Search/Search'
 import Spinner from '../../components/Spinner/Spinner'
 import { CardContext } from '../../context/cardContext'
-import { UserContext } from '../../context/userContext'
 import { useApi } from '../../hooks/useApi'
 import api from '../../utils/api'
-import { isLiked } from '../../utils/product'
 
-// const ID_PRODUCT = '622c779c77d63f6e70967d1c';
 export const ProductPage = () => {
   const { productId } = useParams();
   const { handleLike } = useContext(CardContext)
@@ -29,7 +21,6 @@ export const ProductPage = () => {
       setProduct(updateProduct)
     })
   }, [product, handleLike])
-
 
   return (
     <>

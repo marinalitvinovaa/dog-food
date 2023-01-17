@@ -8,8 +8,6 @@ import { FormInput } from '../FormInput/FormInput'
 export const Register = () => {
   const location = useLocation();
   const initialPath = location.state?.initialPath;
-
-
   const { register, handleSubmit, formState: {errors}} = useForm({mode: 'onBlur'})
   const navigate = useNavigate()
 
@@ -21,7 +19,6 @@ export const Register = () => {
   const sendRegisterApi = (data) => {
       console.log(data)
   }
-
 
   const emailRegister = register('email', {
     required: {
@@ -53,7 +50,6 @@ export const Register = () => {
         placeholder="email"
       />
         {errors?.email && <p className="errorMessage">{errors?.email?.message}</p>}
-
       <FormInput
         {...passwordRegister}
         id="password"
